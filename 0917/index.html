@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하재범 - Developer & AI Enthusiast</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #000000;
+            --primary-white: #ffffff;
+            --accent-gray: #666666;
+            --light-gray: #f5f5f5;
+            --medium-gray: #cccccc;
+            --hover-color: #333333;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary-white);
+            color: var(--primary-black);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom: 3px solid var(--accent-gray);
+        }
+
+        header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        nav {
+            background: var(--light-gray);
+            padding: 1rem 0;
+            text-align: center;
+            border-bottom: 1px solid var(--medium-gray);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav span {
+            margin: 0 2rem;
+        }
+
+        nav a {
+            color: var(--primary-black);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+        }
+
+        nav a:hover {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            transform: translateY(-2px);
+        }
+
+        nav a.active {
+            background: var(--accent-gray);
+            color: var(--primary-white);
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            flex: 1;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: contents;
+        }
+
+        .main-section {
+            background: var(--primary-white);
+            padding: 2rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--primary-black);
+            border-bottom: 2px solid var(--accent-gray);
+            padding-bottom: 0.5rem;
+            font-weight: 300;
+        }
+
+        .personal-info {
+            list-style: none;
+            font-size: 1.1rem;
+        }
+
+        .personal-info li {
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .personal-info li:last-child {
+            border-bottom: none;
+        }
+
+        .personal-info strong {
+            display: inline-block;
+            width: 120px;
+            font-weight: 600;
+            color: var(--accent-gray);
+        }
+
+        #year-table {
+            width: 100%;
+            margin-top: 1rem;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        #year-table th {
+            background: var(--light-gray);
+            padding: 0.8rem;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid var(--medium-gray);
+        }
+
+        #year-table td {
+            padding: 0.8rem;
+            border: 1px solid var(--medium-gray);
+            text-align: center;
+        }
+
+        #year-table tr:nth-child(even) {
+            background: var(--light-gray);
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        #logo {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+        }
+
+        aside {
+            background: var(--primary-white);
+            padding: 2rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        aside h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-black);
+            font-weight: 300;
+        }
+
+        .portal-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .portal-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--primary-black);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .portal-link:hover {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            transform: translateX(5px);
+        }
+
+        .portal-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--accent-gray);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .video-section {
+            background: var(--primary-white);
+            padding: 2rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .video-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-black);
+            font-weight: 300;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        footer {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: auto;
+        }
+
+        footer h2 {
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        /* 오디오 컨트롤 */
+        .audio-control {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .audio-button {
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--primary-black);
+            background: var(--primary-white);
+            color: var(--primary-black);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .audio-button:hover {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            transform: scale(1.05);
+        }
+
+        .audio-button.playing {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* 프로젝트 카테고리 스타일 */
+        .project-category {
+            margin-bottom: 2rem;
+        }
+
+        .category-title {
+            color: var(--accent-gray);
+            margin: 2rem 0 1rem 0;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .project-item {
+            border-left: 3px solid var(--primary-black);
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            color: var(--primary-black);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .project-meta {
+            color: var(--accent-gray);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .project-description {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .project-link {
+            color: var(--accent-gray);
+            font-size: 0.9rem;
+            text-decoration: none;
+            border-bottom: 1px solid var(--medium-gray);
+            transition: border-color 0.3s ease;
+        }
+
+        .project-link:hover {
+            border-bottom-color: var(--primary-black);
+        }
+
+        /* 학술 연구 스타일 */
+        .research-item {
+            border-left: 3px solid var(--accent-gray);
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .research-title {
+            color: var(--primary-black);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .research-year {
+            color: var(--accent-gray);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .research-description {
+            line-height: 1.6;
+        }
+
+        /* 기술 스택 그리드 */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .tech-item {
+            background: var(--light-gray);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            background: var(--medium-gray);
+            transform: translateY(-2px);
+        }
+
+        .tech-emoji {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .tech-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .tech-desc {
+            color: var(--accent-gray);
+            font-size: 0.9rem;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem 1rem;
+            }
+
+            nav span {
+                margin: 0 0.5rem;
+                display: inline-block;
+                margin-bottom: 0.5rem;
+            }
+
+            nav a {
+                font-size: 1rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .main-section, aside {
+                padding: 1.5rem;
+            }
+
+            .personal-info strong {
+                width: 100px;
+                font-size: 1rem;
+            }
+
+            #year-table {
+                font-size: 0.85rem;
+            }
+
+            .audio-control {
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 0.8rem;
+            }
+        }
+
+        /* 스크롤바 스타일링 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-gray);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--medium-gray);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-gray);
+        }
+
+        /* 텍스트 선택 */
+        ::selection {
+            background: var(--primary-black);
+            color: var(--primary-white);
+        }
+
+        /* 페이지 전환 애니메이션 */
+        .page-transition {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .page-transition.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>하재범 홈페이지</h1>
+    </header>
+    
+    <nav>
+        <span><a href="#" class="nav-link active" onclick="showPage('intro')">소개</a></span>
+        <span><a href="#" class="nav-link" onclick="showPage('personal')">인적사항</a></span>
+        <span><a href="#" class="nav-link" onclick="showPage('education')">학술</a></span>
+        <span><a href="#" class="nav-link" onclick="showPage('career')">경력</a></span>
+    </nav>
+
+    <!-- 소개 페이지 -->
+    <div class="page active" id="intro">
+        <div class="content">
+            <main>
+                <section class="main-section page-transition active">
+                    <h3>자기소개</h3>
+                    <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem; color: var(--accent-gray);">
+                        안녕하세요. 저는 컴퓨터소프트웨어과를 전공하며 개발과 AI 학습에 열정을 가진 개발자 하재범입니다. 
+                        창의적인 솔루션을 통해 문제를 해결하고, 사용자 경험을 개선하는 것을 좋아합니다. 
+                        현재 부산에서 활동하며 새로운 기술을 탐구하고 있습니다.
+                    </p>
+                    
+                    <h4 style="margin: 2rem 0 1rem 0; font-size: 1.3rem; color: var(--primary-black);">개발 철학</h4>
+                    <p style="line-height: 1.8; margin-bottom: 2rem; color: var(--accent-gray);">
+                        단순히 코드를 작성하는 것을 넘어서, 사용자의 니즈를 파악하고 실질적인 가치를 제공하는 소프트웨어를 만들고자 합니다. 
+                        끊임없는 학습과 실험을 통해 최신 기술 트렌드를 따라가며, 후배 개발자들과의 지식 공유를 통해 함께 성장하는 것을 중요하게 생각합니다.
+                    </p>
+
+                    <h4 style="margin: 2rem 0 1rem 0; font-size: 1.3rem; color: var(--primary-black);">주요 기술 스택</h4>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <span class="tech-emoji">🐍</span>
+                            <div class="tech-name">Python</div>
+                            <div class="tech-desc">알고리즘, 데이터 처리</div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-emoji">☕</span>
+                            <div class="tech-name">Java</div>
+                            <div class="tech-desc">백엔드, 시스템 개발</div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-emoji">🌐</span>
+                            <div class="tech-name">Web Development</div>
+                            <div class="tech-desc">HTML, CSS, JavaScript</div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-emoji">📱</span>
+                            <div class="tech-name">Mobile</div>
+                            <div class="tech-desc">Android, Hybrid App</div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-emoji">⚡</span>
+                            <div class="tech-name">jQuery</div>
+                            <div class="tech-desc">인터랙티브 UI/UX</div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-emoji">🔗</span>
+                            <div class="tech-name">IoT</div>
+                            <div class="tech-desc">사물인터넷, 센서</div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin: 2rem 0 1rem 0; font-size: 1.3rem; color: var(--primary-black);">관심 분야</h4>
+                    <ul style="list-style: none; line-height: 2; color: var(--accent-gray);">
+                        <li>• <strong>AI & 머신러닝:</strong> 실무에 적용 가능한 AI 솔루션 개발</li>
+                        <li>• <strong>풀스택 개발:</strong> 프론트엔드부터 백엔드까지 전체적인 시스템 구축</li>
+                        <li>• <strong>모바일 개발:</strong> 사용자 친화적인 모바일 애플리케이션</li>
+                        <li>• <strong>교육 & 멘토링:</strong> 지식 공유를 통한 개발자 커뮤니티 기여</li>
+                    </ul>
+                </section>
+            </main>
+
+            <div class="sidebar">
+                <div class="video-section">
+                    <h3>소개 영상</h3>
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/u8yRppJUY0I" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
+                <aside>
+                    <h3>참조 링크</h3>
+                    <div class="portal-links">
+                        <a href="https://github.com/BeomE02" class="portal-link" target="_blank">
+                            <div class="portal-icon">📁</div>
+                            <span>GitHub Portfolio</span>
+                        </a>
+                        <a href="mailto:jq5511@naver.com" class="portal-link">
+                            <div class="portal-icon">📧</div>
+                            <span>Email Contact</span>
+                        </a>
+                        <a href="https://www.linkedin.com" class="portal-link" target="_blank">
+                            <div class="portal-icon">💼</div>
+                            <span>LinkedIn Profile</span>
+                        </a>
+                        <a href="#" class="portal-link">
+                            <div class="portal-icon">📄</div>
+                            <span>Resume Download</span>
+                        </a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- 인적사항 페이지 -->
+    <div class="page" id="personal">
+        <div class="content">
+            <main>
+                <section class="main-section page-transition">
+                    <h3>인적사항</h3>
+                    <ul class="personal-info">
+                        <li><strong>성명:</strong> 하재범</li>
+                        <li><strong>전공:</strong> 컴퓨터소프트웨어과</li>
+                        <li><strong>거주지:</strong> 부산광역시</li>
+                        <li><strong>연락처:</strong> jq5511@naver.com</li>
+                        <li><strong>GitHub:</strong> <a href="https://github.com/BeomE02" style="color: var(--accent-gray); text-decoration: none;">github.com/BeomE02</a></li>
+                        <li><strong>보유 기술:</strong>
+                            <table id="year-table">
+                                <thead>
+                                    <tr>
+                                        <th>분야</th>
+                                        <th>기술 스택</th>
+                                        <th>숙련도</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>프로그래밍</td>
+                                        <td>Python, Java, JavaScript</td>
+                                        <td>상급</td>
+                                    </tr>
+                                    <tr>
+                                        <td>웹 개발</td>
+                                        <td>HTML, CSS, jQuery</td>
+                                        <td>상급</td>
+                                    </tr>
+                                    <tr>
+                                        <td>모바일</td>
+                                        <td>Android, Hybrid App</td>
+                                        <td>중급</td>
+                                    </tr>
+                                    <tr>
+                                        <td>백엔드</td>
+                                        <td>Backend Development</td>
+                                        <td>중급</td>
+                                    </tr>
+                                    <tr>
+                                        <td>IoT</td>
+                                        <td>센서, 임베디드</td>
+                                        <td>중급</td>
+                                    </tr>
+                                    <tr>
+                                        <td>협업</td>
+                                        <td>Git, GitHub, 팀 프로젝트</td>
+                                        <td>상급</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li><strong>활동:</strong>
+                            <ul style="margin-top: 1rem; list-style: disc; margin-left: 2rem;">
+                                <li>2024 멘토링 프로그램 진행 (후배 개발자 교육)</li>
+                                <li>GitHub 오픈소스 프로젝트 관리</li>
+                                <li>팀 프로젝트 리더십 경험</li>
+                                <li>다양한 기술 스택 학습 및 적용</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+            </main>
+
+            <div class="sidebar">
+                <aside>
+                    <h3>연락처 정보</h3>
+                    <div class="portal-links">
+                        <a href="mailto:jq5511@naver.com" class="portal-link">
+                            <div class="portal-icon">📧</div>
+                            <span>jq5511@naver.com</span>
+                        </a>
+                        <a href="https://github.com/BeomE02" class="portal-link" target="_blank">
+                            <div class="portal-icon">🔗</div>
+                            <span>GitHub: BeomE02</span>
+                        </a>
+                        <div class="portal-link">
+                            <div class="portal-icon">📍</div>
+                            <span>부산광역시</span>
+                        </div>
+                        <div class="portal-link">
+                            <div class="portal-icon">🎓</div>
+                            <span>컴퓨터소프트웨어과</span>
+                        </div>
+                    </div>
+                </aside>
+
+                <aside style="margin-top: 2rem;">
+                    <h3>관심 키워드</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                        <span style="background: var(--light-gray); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">#Python</span>
+                        <span style="background: var(--light-gray); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">#Java</span>
+                        <span style="background: var(--light-gray); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">#WebDev</span>
+                        <span style="background: var(--light-gray); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">#Android</span>
+                        <span style="background: var(--light-gray); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">#AI</span>
+                        <span style="background: var(--light-gray); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">#IoT</span>
+                        <span style="background: var(--light-gray); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">#Mentoring</span>
+                        <span style="background: var(--light-gray); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem;">#GitHub</span>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- 학술 페이지 -->
+    <div class="page" id="education">
+        <div class="content">
+            <main>
+                <section class="main-section page-transition">
+                    <h3>학술 연구</h3>
+                    <div style="display: grid; gap: 2rem;">
+                        <div class="research-item">
+                            <h4 class="research-title">Python 프로그래밍 심화 연구</h4>
+                            <p class="research-year">2024년 연구</p>
+                            <p class="research-description">
+                                Python의 고급 기능을 활용한 데이터 구조와 알고리즘 최적화에 대한 종합적인 연구입니다. 
+                                실제 프로젝트에서 활용 가능한 실용적인 코딩 패턴들을 분석하고, 성능 비교를 통해 
+                                최적화된 솔루션을 제시했습니다. 특히 대용량 데이터 처리와 메모리 효율성에 중점을 두었습니다.
+                            </p>
+                        </div>
+
+                        <div class="research-item">
+                            <h4 class="research-title">모던 웹 개발 기술 스택 분석</h4>
+                            <p class="research-year">2024년 연구</p>
+                            <p class="research-description">
+                                HTML5, CSS3, JavaScript, jQuery를 중심으로 한 현대적 웹 개발 방법론에 대한 연구입니다. 
+                                사용자 경험(UX) 향상을 위한 인터랙티브 웹 페이지 구현 기법을 체계적으로 분석하고, 
+                                반응형 디자인과 접근성을 고려한 웹 개발 가이드라인을 제시했습니다.
+                            </p>
+                        </div>
+
+                        <div class="research-item">
+                            <h4 class="research-title">Java 기반 백엔드 시스템 설계</h4>
+                            <p class="research-year">2024년 연구</p>
+                            <p class="research-description">
+                                Java를 활용한 확장 가능한 백엔드 시스템 아키텍처 설계에 대한 연구입니다. 
+                                마이크로서비스 아키텍처와 모놀리식 구조의 장단점을 비교 분석하고, 
+                                성능 최적화와 보안을 고려한 API 설계 방법론을 제시했습니다.
+                            </p>
+                        </div>
+
+                        <div class="research-item">
+                            <h4 class="research-title">AI 기술 동향 및 실무 적용 방안</h4>
+                            <p class="research-year">2024년 연구</p>
+                            <p class="research-description">
+                                최신 AI 기술 트렌드를 분석하고, 실제 개발 프로젝트에서 활용할 수 있는 
+                                머신러닝 및 딥러닝 모델 구현 방법을 연구했습니다. 특히 자연어 처리와 
+                                컴퓨터 비전 분야의 실용적 적용 사례를 중점적으로 다뤘습니다.
+                            </p>
+                        </div>
+
+                        <div class="research-item">
+                            <h4 class="research-title">모바일 애플리케이션 개발 방법론</h4>
+                            <p class="research-year">2024년 연구</p>
+                            <p class="research-description">
+                                Android 네이티브 앱과 하이브리드 앱 개발의 효율성을 비교 분석한 연구입니다. 
+                                사용자 경험과 성능을 고려한 최적의 모바일 개발 전략을 제시하고, 
+                                크로스 플랫폼 개발 도구의 활용 방안을 탐구했습니다.
+                            </p>
+                        </div>
+
+                        <div class="research-item">
+                            <h4 class="research-title">IoT 시스템 통합 및 데이터 처리</h4>
+                            <p class="research-year">2024년 연구</p>
+                            <p class="research-description">
+                                사물인터넷 환경에서의 센서 데이터 수집, 처리, 분석에 대한 종합적인 연구입니다. 
+                                실시간 데이터 스트리밍과 에지 컴퓨팅을 활용한 효율적인 IoT 시스템 
+                                아키텍처 설계 방법론을 제안했습니다.
+                            </p>
+                        </div>
+
+                        <div class="research-item">
+                            <h4 class="research-title">소프트웨어 교육 방법론 연구</h4>
+                            <p class="research-year">2024년 연구</p>
+                            <p class="research-description">
+                                효과적인 프로그래밍 교육을 위한 멘토링 시스템과 학습 플랫폼 설계에 대한 연구입니다. 
+                                실습 중심 교육과 프로젝트 기반 학습의 효과를 분석하고, 
+                                개인별 맞춤형 학습 경로 제공 방안을 제시했습니다.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <div class="sidebar">
+                <aside>
+                    <h3>연구 분야</h3>
+                    <div class="portal-links">
+                        <div class="portal-link">
+                            <div class="portal-icon">🐍</div>
+                            <span>Python 고급 프로그래밍</span>
+                        </div>
+                        <div class="portal-link">
+                            <div class="portal-icon">🌐</div>
+                            <span>웹 개발 기술</span>
+                        </div>
+                        <div class="portal-link">
+                            <div class="portal-icon">☕</div>
+                            <span>Java 백엔드 시스템</span>
+                        </div>
+                        <div class="portal-link">
+                            <div class="portal-icon">🤖</div>
+                            <span>AI & 머신러닝</span>
+                        </div>
+                        <div class="portal-link">
+                            <div class="portal-icon">📱</div>
+                            <span>모바일 개발</span>
+                        </div>
+                        <div class="portal-link">
+                            <div class="portal-icon">🔗</div>
+                            <span>IoT 시스템</span>
+                        </div>
+                    </div>
+                </aside>
+
+                <aside style="margin-top: 2rem;">
+                    <h3>연구 성과</h3>
+                    <div style="text-align: left; padding: 1rem;">
+                        <p style="margin-bottom: 1rem; color: var(--accent-gray);">
+                            <strong>총 연구 프로젝트:</strong> 7개<br>
+                            <strong>GitHub 저장소:</strong> 15개<br>
+                            <strong>주요 기술 영역:</strong> 6개 분야<br>
+                            <strong>멘토링 활동:</strong> 진행중
+                        </p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- 경력 페이지 -->
+    <div class="page" id="career">
+        <div class="content">
+            <main>
+                <section class="main-section page-transition">
+                    <h3>프로젝트 경력</h3>
+                    
+                    <div class="project-category">
+                        <h4 class="category-title">모바일/앱 개발</h4>
+                        <div class="project-item">
+                            <h4 class="project-title">Android 프로젝트</h4>
+                            <p class="project-meta">모바일 개발자 | 2024년</p>
+                            <p class="project-description">안드로이드 네이티브 앱 개발 프로젝트로, 사용자 친화적인 인터페이스와 최적화된 성능을 목표로 개발했습니다.</p>
+                            <a href="https://github.com/BeomE02/Android" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                        <div class="project-item">
+                            <h4 class="project-title">Android-1 프로젝트</h4>
+                            <p class="project-meta">모바일 개발자 | 2024년</p>
+                            <p class="project-description">추가적인 안드로이드 개발 프로젝트로, 다양한 기능과 UI 컴포넌트를 실험하고 구현했습니다.</p>
+                            <a href="https://github.com/BeomE02/Android-1" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                        <div class="project-item">
+                            <h4 class="project-title">Hybrid 앱 개발</h4>
+                            <p class="project-meta">하이브리드 개발자 | 2024년</p>
+                            <p class="project-description">크로스 플랫폼 하이브리드 애플리케이션 개발로, 단일 코드베이스로 다중 플랫폼 지원을 구현했습니다.</p>
+                            <a href="https://github.com/BeomE02/hybrid" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                    </div>
+
+                    <div class="project-category">
+                        <h4 class="category-title">웹 개발</h4>
+                        <div class="project-item">
+                            <h4 class="project-title">Java 개발 프로젝트</h4>
+                            <p class="project-meta">백엔드 개발자 | 2024년</p>
+                            <p class="project-description">Java 기반 백엔드 시스템 및 웹 애플리케이션 개발로, 확장성과 유지보수성을 고려한 아키텍처를 구현했습니다.</p>
+                            <a href="https://github.com/BeomE02/Java-2024" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                        <div class="project-item">
+                            <h4 class="project-title">Python 개발 프로젝트</h4>
+                            <p class="project-meta">개발자 | 2024년</p>
+                            <p class="project-description">Python을 활용한 알고리즘 구현 및 데이터 처리 솔루션 개발로, 효율적인 코드 구조와 최적화를 중점으로 했습니다.</p>
+                            <a href="https://github.com/BeomE02/python" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                        <div class="project-item">
+                            <h4 class="project-title">JavaScript 프로젝트</h4>
+                            <p class="project-meta">프론트엔드 개발자 | 2024년</p>
+                            <p class="project-description">모던 JavaScript를 활용한 웹 애플리케이션 개발로, ES6+ 문법과 최신 웹 표준을 적용했습니다.</p>
+                            <a href="https://github.com/BeomE02/2024_JS" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                        <div class="project-item">
+                            <h4 class="project-title">jQuery 인터랙티브 앱</h4>
+                            <p class="project-meta">프론트엔드 개발자 | 2024년</p>
+                            <p class="project-description">jQuery를 활용한 동적이고 인터랙티브한 웹 애플리케이션으로, 사용자 경험 향상에 중점을 두었습니다.</p>
+                            <a href="https://github.com/BeomE02/jQurry" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                        <div class="project-item">
+                            <h4 class="project-title">반응형 웹사이트</h4>
+                            <p class="project-meta">웹 개발자 | 2024년</p>
+                            <p class="project-description">HTML/CSS 기반 반응형 웹사이트로, 모든 디바이스에서 최적화된 사용자 경험을 제공합니다.</p>
+                            <a href="https://github.com/BeomE02/HTML" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                    </div>
+
+                    <div class="project-category">
+                        <h4 class="category-title">백엔드/시스템</h4>
+                        <div class="project-item">
+                            <h4 class="project-title">Backend 시스템 개발</h4>
+                            <p class="project-meta">백엔드 개발자 | 2024년</p>
+                            <p class="project-description">서버 사이드 시스템 및 API 개발로, RESTful API 설계와 데이터베이스 최적화를 구현했습니다.</p>
+                            <a href="https://github.com/BeomE02/Backend" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                        <div class="project-item">
+                            <h4 class="project-title">IoT 프로젝트</h4>
+                            <p class="project-meta">IoT 개발자 | 2024년</p>
+                            <p class="project-description">사물인터넷 시스템 및 센서 데이터 처리로, 실시간 데이터 수집과 분석 시스템을 구축했습니다.</p>
+                            <a href="https://github.com/BeomE02/IoT" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                    </div>
+
+                    <div class="project-category">
+                        <h4 class="category-title">팀 프로젝트 & 교육</h4>
+                        <div class="project-item">
+                            <h4 class="project-title">TeamSemicolon 프로젝트</h4>
+                            <p class="project-meta">팀 리더 | 2024년</p>
+                            <p class="project-description">팀 협업 프로젝트로, 세미콜론 팀과 함께 개발한 종합적인 소프트웨어 솔루션입니다.</p>
+                            <a href="https://github.com/BeomE02/TeamSemicolon" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                        <div class="project-item">
+                            <h4 class="project-title">멘토링 플랫폼</h4>
+                            <p class="project-meta">프로젝트 리더 & 멘토 | 2024년</p>
+                            <p class="project-description">후배 개발자들을 위한 학습 플랫폼으로, 효과적인 지식 전달과 협업을 위한 도구들을 구현했습니다.</p>
+                            <a href="https://github.com/BeomE02/2024_Mentoring" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                        <div class="project-item">
+                            <h4 class="project-title">GitHub 튜토리얼</h4>
+                            <p class="project-meta">교육자 | 2024년</p>
+                            <p class="project-description">GitHub 사용법 및 버전 관리 교육을 위한 종합적인 가이드와 실습 자료를 제작했습니다.</p>
+                            <a href="https://github.com/BeomE02/githubIntroduce" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                    </div>
+
+                    <div class="project-category">
+                        <h4 class="category-title">개인 프로젝트</h4>
+                        <div class="project-item">
+                            <h4 class="project-title">JaeBeom 개인 프로젝트</h4>
+                            <p class="project-meta">개인 개발 | 2024년</p>
+                            <p class="project-description">개인 포트폴리오 및 실험적 프로젝트로, 새로운 기술과 아이디어를 테스트하고 구현했습니다.</p>
+                            <a href="https://github.com/BeomE02/JaeBeom" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                        <div class="project-item">
+                            <h4 class="project-title">School File 프로젝트</h4>
+                            <p class="project-meta">학교 프로젝트 | 2024년</p>
+                            <p class="project-description">학교 관련 파일 관리 시스템으로, 효율적인 문서 관리와 접근성을 고려해 개발했습니다.</p>
+                            <a href="https://github.com/BeomE02/schoolif-file" class="project-link" target="_blank">GitHub Repository</a>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <div class="sidebar">
+                <aside>
+                    <h3>프로젝트 통계</h3>
+                    <div style="text-align: left; padding: 1rem;">
+                        <p style="margin-bottom: 1rem; color: var(--accent-gray);">
+                            <strong>총 프로젝트:</strong> 15개<br>
+                            <strong>모바일 앱:</strong> 3개<br>
+                            <strong>웹 개발:</strong> 5개<br>
+                            <strong>백엔드/시스템:</strong> 2개<br>
+                            <strong>팀 프로젝트:</strong> 3개<br>
+                            <strong>개인 프로젝트:</strong> 2개
+                        </p>
+                    </div>
+                </aside>
+
+                <aside style="margin-top: 2rem;">
+                    <h3>주요 기술</h3>
+                    <div class="portal-links">
+                        <div class="portal-link">
+                            <div class="portal-icon">📱</div>
+                            <span>Mobile: Android, Hybrid</span>
+                        </div>
+                        <div class="portal-link">
+                            <div class="portal-icon">🌐</div>
+                            <span>Frontend: HTML, CSS, JS</span>
+                        </div>
+                        <div class="portal-link">
+                            <div class="portal-icon">⚙️</div>
+                            <span>Backend: Java, Python</span>
+                        </div>
+                        <div class="portal-link">
+                            <div class="portal-icon">🔗</div>
+                            <span>IoT: Sensors, Embedded</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <h2>Copyright &copy; 2024 Ha, JaeBeom | Developer & AI Enthusiast</h2>
+    </footer>
+
+    <!-- 오디오 컨트롤 -->
+    <div class="audio-control">
+        <button class="audio-button" onclick="toggleAudio()" id="audioBtn">♪</button>
+        <audio id="bgAudio" loop preload="auto">
+            <source src="https://raw.githubusercontent.com/BeomE02/Android2/main/music.mp3" type="audio/mpeg">
+            <source src="https://raw.githubusercontent.com/BeomE02/Android2/main/background-music.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        let isAudioPlaying = false;
+        let audioContext = null;
+        let oscillator = null;
+
+        // 페이지 전환 함수
+        function showPage(pageId) {
+            // 모든 페이지 숨기기
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            pages.forEach(page => page.classList.remove('active'));
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // 선택된 페이지 보이기
+            document.getElementById(pageId).classList.add('active');
+            event.target.classList.add('active');
+            
+            // 페이지 전환 애니메이션
+            const pageTransitions = document.querySelectorAll(`#${pageId} .page-transition`);
+            pageTransitions.forEach((element, index) => {
+                element.classList.remove('active');
+                setTimeout(() => {
+                    element.classList.add('active');
+                }, index * 100);
+            });
+        }
+
+        // 오디오 토글
+        function toggleAudio() {
+            const audioBtn = document.getElementById('audioBtn');
+            const audio = document.getElementById('bgAudio');
+            
+            if (isAudioPlaying) {
+                audio.pause();
+                audioBtn.textContent = '♪';
+                audioBtn.classList.remove('playing');
+                isAudioPlaying = false;
+                stopWebAudio();
+            } else {
+                audio.play().then(() => {
+                    audioBtn.textContent = '⏸';
+                    audioBtn.classList.add('playing');
+                    isAudioPlaying = true;
+                }).catch(error => {
+                    console.log('HTML5 오디오 실패, 웹 오디오 시도:', error);
+                    playWebAudio();
+                    audioBtn.textContent = '⏸';
+                    audioBtn.classList.add('playing');
+                    isAudioPlaying = true;
+                });
+            }
+        }
+
+        // 웹 오디오 API (대체)
+        function playWebAudio() {
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                
+                oscillator.start();
+            } catch (error) {
+                console.log('웹 오디오 API 실패:', error);
+            }
+        }
+
+        function stopWebAudio() {
+            if (oscillator) {
+                oscillator.stop();
+                oscillator = null;
+            }
+            if (audioContext) {
+                audioContext.close();
+                audioContext = null;
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            // 첫 페이지 애니메이션 활성화
+            const firstPageTransitions = document.querySelectorAll('#intro .page-transition');
+            firstPageTransitions.forEach((element, index) => {
+                setTimeout(() => {
+                    element.classList.add('active');
+                }, index * 200);
+            });
+        });
+
+        // 페이지 언로드 시 오디오 정리
+        window.addEventListener('beforeunload', function() {
+            stopWebAudio();
+        });
+    </script>
+</body>
+</html>
